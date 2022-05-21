@@ -1,0 +1,8 @@
+{
+    "python.envFile": "/Users/andyguillaume/Desktop/AutoML-Zero-Py/.env",
+    "python.pythonPath": ".env/bin/python",
+    "python.linting.flake8Enabled": true,
+    "python.linting.pylintEnabled": false,
+    "python.linting.mypyEnabled": false,
+    "python.linting.enabled": true,
+}
