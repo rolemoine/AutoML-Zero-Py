@@ -1,0 +1,5 @@
+Impossible d'avoir plusieurs constructeur en python 
+    -> Dans certains cas : Instancier vide puis setup la class apres
+    -> (Augmentation du nombre d'opération)
+
+Utilisation de numpy pour générer les valeurs aleatoire avec seulement des floats
