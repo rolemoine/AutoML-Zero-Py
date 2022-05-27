@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Any, NoReturn
 from instructionAbstract import InstructionAbstract
 from instructionSerialize import InstructionSerialize
+from op import Op
 
 
 @dataclass
@@ -11,7 +12,7 @@ class Instruction(InstructionAbstract):
 
     @classmethod
     def FillWithNoOp(cls) -> NoReturn:
-        cls.op_ = NO_OP
+        cls.op_ = Op.NO_OP
         cls.in1_ = 0
         cls.in2_ = 0
         cls.out_ = 0
@@ -62,7 +63,7 @@ class Instruction(InstructionAbstract):
         cls.deserialize(instructionSerialize)
 
     @classmethod
-    def setOpAndRandomizeParams(cls, op, randomGenerator) -> None:
+    def setOpAndRandomizeParams(cls, op: Op, randomGenerator) -> None:
         # TO FILL
         cls.FillWithNoOp()
         return
@@ -100,33 +101,33 @@ class Instruction(InstructionAbstract):
     @classmethod
     def toReadable(cls) -> str:
         match cls.op_:
-            case NO_OP:
+            case Op.NO_OP:
                 return "\tNoOp()"
-            case SCALAR_SUM_OP:
+            case Op.SCALAR_SUM_OP:
                 return "\ts{} = s{} + s{}".format(
                     cls.out_, cls.in1_, cls.in2_)
-            case SCALAR_DIFF_OP:
+            case Op.SCALAR_DIFF_OP:
                 return "\ts{} = s{} - s{}".format(
                     cls.out_, cls.in1_, cls.in2_)
-            case SCALAR_PRODUCT_OP:
+            case Op.SCALAR_PRODUCT_OP:
                 return "\ts{} = s{} * s{}".format(
                     cls.out_, cls.in1_, cls.in2_)
-            case SCALAR_DIVISION_OP:
+            case Op.SCALAR_DIVISION_OP:
                 return "\ts{} = s{} / s{}".format(
                     cls.out_, cls.in1_, cls.in2_)
-            case SCALAR_MIN_OP:
+            case Op.SCALAR_MIN_OP:
                 return "\ts{} = minimum(s{}, s{})".format(
                     cls.out_, cls.in1_, cls.in2_)
-            case SCALAR_MAX_OP:
+            case Op.SCALAR_MAX_OP:
                 return "\ts{} = maximum(s{}, s{})".format(
                     cls.out_, cls.in1_, cls.in2_)
-            case SCALAR_ABS_OP:
+            case Op.SCALAR_ABS_OP:
                 return "\ts{} = abs(s{})".format(
                     cls.out_, cls.in1_)
-            case SCALAR_HEAVYSIDE_OP:
+            case Op.SCALAR_HEAVYSIDE_OP:
                 return "\ts{} = heaviside(s{}, 1.0)".format(
                     cls.out_, cls.in1_)
-            case SCALAR_CONST_SET_OP:
+            case Op.SCALAR_CONST_SET_OP:
                 return "\ts{} = {}".format(
                     cls.out_, cls.activation_data)
             # CONTINUE TO SCALAR_SIN_OP

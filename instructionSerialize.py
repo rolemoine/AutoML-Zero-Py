@@ -18,6 +18,6 @@ class InstructionSerialize(InstructionAbstract):
         self.float_data_2_ = instruction.float_data_2_
 
     @classmethod
-    def deserialize(self) -> Instruction:
+    def deserialize(cls) -> Instruction:
         # TO FILL
         pass

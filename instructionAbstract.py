@@ -1,11 +1,11 @@
 from dataclasses import dataclass
 from typing import Any
+from op import Op
 
 
 @dataclass
 class InstructionAbstract:
-    # Op type
-    op_: Any
+    op_: Op
     # AddressT type
     in1_: Any
     in2_: Any

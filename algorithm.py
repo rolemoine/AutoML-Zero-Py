@@ -25,44 +25,44 @@ class Algorithm(AlgorithmAbstract):
             self.fromProto(algorithm)
 
     @classmethod
-    def opeatorEqual(self, algorithm: 'Algorithm') -> Type[Self@'Algorithm']:
-        if (algorithm):
-            self.setup_ = algorithm.setup_
-            self.predict_ = algorithm.predict_
-            self.learn_ = algorithm.learn_
-        return self
+    def opeatorEqual(cls, algorithm: 'Algorithm') -> Type[Self@'Algorithm']:
+        if algorithm:
+            cls.setup_ = algorithm.setup_
+            cls.predict_ = algorithm.predict_
+            cls.learn_ = algorithm.learn_
+        return cls
 
     @classmethod
-    def operatorEqualEqual(self, algorithm: 'Algorithm') -> bool:
+    def operatorEqualEqual(cls, algorithm: 'Algorithm') -> bool:
         return (
-            isComponentFunctionEqual(self.setup_, algorithm.setup_) and
-            isComponentFunctionEqual(self.predict_, algorithm.predict_) and
-            isComponentFunctionEqual(self.learn_, algorithm.learn_)
+            isComponentFunctionEqual(cls.setup_, algorithm.setup_) and
+            isComponentFunctionEqual(cls.predict_, algorithm.predict_) and
+            isComponentFunctionEqual(cls.learn_, algorithm.learn_)
         )
 
     @classmethod
-    def toReadable(self) -> str:
+    def toReadable(cls) -> str:
         instruction: Instruction
         print("def Setup():")
-        for instruction in self.setup_:
+        for instruction in cls.setup_:
             print(instruction.toReadable())
         print("def Predict():")
-        for instruction in self.predict_:
+        for instruction in cls.predict_:
             print(instruction.toReadable())
         print("def Learn():")
-        for instruction in self.learn_:
+        for instruction in cls.learn_:
             print(instruction.toReadable())
 
     @classmethod
-    def toProto(self) -> AlgorithmSerialize:
+    def toProto(cls) -> AlgorithmSerialize:
         return AlgorithmSerialize(
-            self.setup_.toProto(),
-            self.predict_.toProto(),
-            self.learn_.toProto()
+            cls.setup_.toProto(),
+            cls.predict_.toProto(),
+            cls.learn_.toProto()
         )
 
     @classmethod
-    def fromProto(self, algorithmeSerialize: AlgorithmSerialize) -> NoReturn:
-        self.setup_ = algorithmeSerialize.setup_.make_shared()
-        self.predict_ = algorithmeSerialize.predict_.make_shared()
-        self.learn_ = algorithmeSerialize.learn_.make_shared()
+    def fromProto(cls, algorithmeSerialize: AlgorithmSerialize) -> NoReturn:
+        cls.setup_ = algorithmeSerialize.setup_.make_shared()
+        cls.predict_ = algorithmeSerialize.predict_.make_shared()
+        cls.learn_ = algorithmeSerialize.learn_.make_shared()

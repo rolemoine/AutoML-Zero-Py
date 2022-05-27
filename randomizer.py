@@ -3,14 +3,15 @@ from random import random
 from typing import Any, NoReturn
 from algorithm import Algorithm
 from instruction import Instruction
+from op import Op
 import numpy as np
 
 
 @dataclass
 class Randomizer:
-    allowed_setup_ops_: list[Any]
-    allowed_predict_ops_: list[Any]
-    allowed_learn_ops_: list[Any]
+    allowed_setup_ops_: list[Op]
+    allowed_predict_ops_: list[Op]
+    allowed_learn_ops_: list[Op]
     bit_gen_: np.random.MT19937
     rand_gen_: Any
 
@@ -59,19 +60,19 @@ class Randomizer:
             algorithm.learn_[instruction_index] = instruction
 
     @classmethod
-    def setupOp(cls) -> Any:
+    def setupOp(cls) -> Op:
         return cls.allowed_setup_ops_[
             random.uniform(0, len(cls.allowed_setup_ops_))
         ]
 
     @classmethod
-    def predictOp(cls) -> Any:
+    def predictOp(cls) -> Op:
         return cls.allowed_predict_ops_[
             random.uniform(0, len(cls.allowed_predict_ops_))
         ]
 
     @classmethod
-    def learnOp(cls) -> Any:
+    def learnOp(cls) -> Op:
         return cls.allowed_learn_ops_[
             random.uniform(0, len(cls.allowed_learn_ops_))
         ]
