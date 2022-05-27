@@ -1,8 +1,21 @@
 from typing import Any, NoReturn
+from experiment_util import extractOps
+from generator import Generator
+from random_generator import RandomGenerator, generateRandomSeed
+from train_budget import buildTrainBudget
 
+
+# Add flag handler
 
 def run(config: Any) -> NoReturn:
+    random_seed: int = getFlag(FLAG['random_seed'])
+    if (random_seed == 0):
+        random_seed = generateRandomSeed()
+    rand_gen: RandomGenerator = RandomGenerator()
+    print(f"Random seed = {str(random_seed)}\n")
+
     assert config is not None
+    
     generator: Generator = Generator(
         config.initial_population,
         config.setup_size_init,
@@ -11,10 +24,10 @@ def run(config: Any) -> NoReturn:
         extractOps(config.setup_ops),
         extractOps(config.predict_ops),
         extractOps(config.learn_ops),
-        bit_gen,
+        # bit_gen,
         rand_gen
     )
-    train_budget: Any = None
+    train_budget: buildTrainBudget = None
     if (config.has_train_budget):
         train_budget = buildTrainBudget(config.train_budget(), generator)
     mutator: Mutator = Mutator(
@@ -29,6 +42,6 @@ def run(config: Any) -> NoReturn:
         config.mutate_predict_size_max,
         config.mutate_learn_size_min,
         config.mutate_learn_size_max,
-        bit_gen,
+        # bit_gen,
         rand_gen
     )

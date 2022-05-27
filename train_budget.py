@@ -1,18 +1,9 @@
 from dataclasses import dataclass
 from tokenize import Double
-from typing import Any
+from enum import HardcodedAlgorithmID
 from algorithm import Algorithm
 from computeCost import computeComponentFunctionCost
-
-
-def buildTrainBudget(train_budget_spec: Any, generator: Any):
-    # NEED REFACTOR
-    baseline_id: Any = train_budget_spec.train_budget_baseline()
-    baseline_algorithm: Algorithm = generator.modelByID(baseline_id)
-    return TrainBudget(
-        baseline_algorithm,
-        train_budget_spec.train_budget_threshold_factor()
-    )
+from generator import Generator
 
 
 @dataclass
@@ -50,3 +41,16 @@ class TrainBudget:
         if suggested_cost <= baseline_cost * cls.threshold_factor_:
             return budget
         return 0
+
+
+def buildTrainBudget(
+    train_budget_spec: TrainBudgetSpec,
+    generator: Generator
+) -> TrainBudget:
+    baseline_id: HardcodedAlgorithmID = \
+        train_budget_spec.train_budget_baseline()
+    baseline_algorithm: Algorithm = generator.modelByID(baseline_id)
+    return TrainBudget(
+        baseline_algorithm,
+        train_budget_spec.train_budget_threshold_factor()
+    )

@@ -2,7 +2,7 @@ from dataclasses import dataclass
 from typing import Any, NoReturn
 from instructionAbstract import InstructionAbstract
 from instructionSerialize import InstructionSerialize
-from op import Op
+from enum import Op
 
 
 @dataclass

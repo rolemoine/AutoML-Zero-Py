@@ -4,6 +4,11 @@ from tokenize import Double
 from typing import Any
 from algorithm import Algorithm
 
+from definitions import kMinFitness, kMaxFitness
+
+kMinNumTrainExamples: int = 10
+kFunctionalCacheRandomSeed: int = 235732282
+
 
 @dataclass
 class Evaluator:
@@ -37,7 +42,10 @@ class Evaluator:
             if cls.train_budget_ is None:
                 num_train_examples = task.maxTrainExamples()
             else:
-                num_train_examples = cls.train_budget_.TrainExamples(algorithm, task.MaxTrainExamples())
+                num_train_examples = cls.train_budget_.TrainExamples(
+                    algorithm,
+                    task.MaxTrainExamples()
+                )
 
             curr_fitness: Double = -1.0
             curr_fitness = Execute(task, num_train_examples, algorithm)
@@ -69,8 +77,8 @@ class Evaluator:
     def execute(
         cls,
         task,
-        num_train_examples,
-        algorithm
+        num_train_examples: int,
+        algorithm: Algorithm
     ) -> Double:
         match task.featuresSize():
             case 2:

@@ -1,6 +1,6 @@
 from tokenize import Double
 from instruction import Instruction
-from op import Op
+from enum import Op
 
 
 def computeComponentFunctionCost(

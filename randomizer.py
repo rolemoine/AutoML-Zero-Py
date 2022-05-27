@@ -1,10 +1,11 @@
 from dataclasses import dataclass
 from random import random
-from typing import Any, NoReturn
+from typing import NoReturn
 from algorithm import Algorithm
 from instruction import Instruction
-from op import Op
+from enum import Op
 import numpy as np
+from random_generator import RandomGenerator
 
 
 @dataclass
@@ -13,15 +14,15 @@ class Randomizer:
     allowed_predict_ops_: list[Op]
     allowed_learn_ops_: list[Op]
     bit_gen_: np.random.MT19937
-    rand_gen_: Any
+    rand_gen_: RandomGenerator
 
     def __init__(
         self,
-        allowed_setup_ops,
-        allowed_predict_ops,
-        allowed_learn_ops,
+        allowed_setup_ops: list[Op],
+        allowed_predict_ops: list[Op],
+        allowed_learn_ops: list[Op],
         bit_gen: np.random.MT19937,
-        rand_gen
+        rand_gen: RandomGenerator
     ) -> None:
         self.allowed_setup_ops_ = allowed_setup_ops
         self.allowed_predict_ops_ = allowed_predict_ops

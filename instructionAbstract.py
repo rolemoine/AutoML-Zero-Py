@@ -1,15 +1,14 @@
 from dataclasses import dataclass
-from typing import Any
-from op import Op
+from enum import Op
 
 
 @dataclass
 class InstructionAbstract:
     op_: Op
     # AddressT type
-    in1_: Any
-    in2_: Any
-    out_: Any
+    in1_: int
+    in2_: int
+    out_: int
     activation_data: float
     float_data_0_: float
     float_data_1_: float
